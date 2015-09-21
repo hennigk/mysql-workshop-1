@@ -1,0 +1,6 @@
+mysql-ctl start
+mysql -uhennigk
+SHOW DATABASES;
+DROP DATABASE decodemtl_test;
+SHOW DATABASES;
+exit
