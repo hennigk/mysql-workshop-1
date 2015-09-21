@@ -1,0 +1,11 @@
+SHOW DATABASES;
+USE decodemtl_addressbook;
+CREATE TABLE Account (
+    -> id int NOT NULL AUTO_INCREMENT,
+    -> PRIMARY KEY(id)
+    -> );
+DESCRIBE Account;
+CREATE TABLE AddressBook ( id int NOT NULL AUTO_INCREMENT, PRIMARY KEY(id) );
+CREATE TABLE Entry ( id int NOT NULL AUTO_INCREMENT, PRIMARY KEY(id) );
+CREATE TABLE Test ( id int NOT NULL AUTO_INCREMENT, PRIMARY KEY(id) ); 
+SHOW TABLES;
