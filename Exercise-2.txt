@@ -1,0 +1,7 @@
+    1  mysql-ctl start
+    2  mysql -uhennigk
+    3  SHOW DATABASES;
+    4  CREATE DATABASE decodemtl_test;
+    5  CREATE DATABASE decodemtl_addressbook;
+    6  SHOW DATABASES;
+    7  exit
