@@ -1,0 +1,5 @@
+SHOW DATABASES;
+USE decodemtl_addressbook;
+SHOW TABLES;
+DROP TABLE Test;
+SHOW TABLES;
