@@ -1,0 +1,199 @@
+SHOW DATABASES;
+USE decodemtl_addressbook;
+
+SHOW TABLES;
++---------------------------------+
+| Tables_in_decodemtl_addressbook |
++---------------------------------+
+| Account                         |
+| AddressBook                     |
+| Entry                           |
++---------------------------------+
+
+mysql> DESCRIBE Account;
++-------+---------+------+-----+---------+----------------+
+| Field | Type    | Null | Key | Default | Extra          |
++-------+---------+------+-----+---------+----------------+
+| id    | int(11) | NO   | PRI | NULL    | auto_increment |
++-------+---------+------+-----+---------+----------------+
+
+ALTER TABLE Account ADD COLUMN email VARCHAR(255);    
+
+mysql> DESCRIBE Account;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| email | varchar(255) | YES  |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+
+ALTER TABLE Account ADD COLUMN password VARCHAR(40);
+ALTER TABLE Account ADD COLUMN createdON DATETIME;
+ALTER TABLE Account ADD COLUMN modifiedON DATETIME;
+
+mysql> DESCRIBE Account;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| id        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| email     | varchar(255) | YES  |     | NULL    |                |
+| password  | varchar(40)  | YES  |     | NULL    |                |
+| createdON | datetime     | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+
+ALTER TABLE AddressBook ADD COLUMN name VARCHAR(255)
+ALTER TABLE AddressBook ADD COLUMN createdOn DATETIME;
+ALTER TABLE AddressBook ADD COLUMN modifiedOn DATETIME; 
+
+mysql> DESCRIBE AddressBook;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(255) | YES  |     | NULL    |                |
+| createdOn  | datetime     | YES  |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+ALTER TABLE AddressBook ADD COLUMN accountId INT;
+mysql> DESCRIBE AddressBook;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(255) | YES  |     | NULL    |                |
+| createdOn  | datetime     | YES  |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
+| accountId  | int(11)      | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+ALTER TABLE AddressBook MODIFY COLUMN accountId int(11) FIRST; 
+
+mysql> DESCRIBE AddressBook;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| accountId  | int(11)      | YES  |     | NULL    |                |
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(255) | YES  |     | NULL    |                |
+| createdOn  | datetime     | YES  |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+ALTER TABLE AddressBook MODIFY COLUMN name VARCHAR(255) NOT NULL; 
+ALTER TABLE AddressBook MODIFY COLUMN createdOn DATETIME NOT NULL; 
+
+mysql> DESCRIBE AddressBook;+------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| accountId  | int(11)      | YES  |     | NULL    |                |
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(255) | NO   |     | NULL    |                |
+| createdOn  | datetime     | NO   |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+ALTER TABLE Account MODIFY COLUMN createdOn DATETIME NOT NULL;
+ALTER TABLE Account MODIFY COLUMN email VARCHAR(255) NOT NULL;
+ALTER TABLE Account MODIFY COLUMN password VARCHAR(40) NOT NULL;
+
+mysql> DESCRIBE Account;+------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| email      | varchar(255) | NO   |     | NULL    |                |
+| password   | varchar(40)  | NO   |     | NULL    |                |
+| createdOn  | datetime     | NO   |     | NULL    |                |
+| modifiedON | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+ALTER TABLE AddressBook ADD FOREIGN KEY (accountId) REFERENCES Account(id);
+mysql> DESCRIBE AddressBook;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| accountId  | int(11)      | YES  | MUL | NULL    |                |
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(255) | NO   |     | NULL    |                |
+| createdOn  | datetime     | NO   |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+ALTER TABLE AddressBook MODIFY COLUMN accountId int(11) AFTER id; 
+
+mysql> DESCRIBE AddressBook;+------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| accountId  | int(11)      | YES  | MUL | NULL    |                |
+| name       | varchar(255) | NO   |     | NULL    |                |
+| createdOn  | datetime     | NO   |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+ALTER TABLE AddressBook MODIFY COLUMN accountId INT NOT NULL; 
+mysql> DESCRIBE AddressBook;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| accountId  | int(11)      | NO   | MUL | NULL    |                |
+| name       | varchar(255) | NO   |     | NULL    |                |
+| createdOn  | datetime     | NO   |     | NULL    |                |
+| modifiedOn | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+ALTER TABLE Entry ADD COLUMN addressBookID INT NOT NULL;
+mysql> DESCRIBE Entry;
++---------------+---------+------+-----+---------+----------------+
+| Field         | Type    | Null | Key | Default | Extra          |
++---------------+---------+------+-----+---------+----------------+
+| id            | int(11) | NO   | PRI | NULL    | auto_increment |
+| addressBookID | int(11) | NO   |     | NULL    |                |
++---------------+---------+------+-----+---------+----------------+
+
+ALTER TABLE Entry ADD COLUMN firstName VARCHAR(255) NOT NULL;
+ALTER TABLE Entry ADD COLUMN lastName VARCHAR(255);
+ALTER TABLE Entry ADD COLUMN birthday DATETIME NOT NULL;
+ALTER TABLE Entry ADD COLUMN type ENUM('home', 'work', 'other') NOT NULL;
+ALTER TABLE Entry ADD COLUMN subtype ENUM('phone', 'address', 'email') NOT NULL;
+ALTER TABLE Entry ADD COLUMN contentLineOne VARCHAR(255) NOT NULL;
+ALTER TABLE Entry ADD COLUMN contentLineTWO VARCHAR(255);
+ALTER TABLE Entry ADD COLUMN contentLineThree VARCHAR(255);
+ALTER TABLE Entry ADD COLUMN contentLineFour VARCHAR(255);
+ALTER TABLE Entry ADD COLUMN contentLineFive VARCHAR(255);
+
+mysql> DESCRIBE Entry;
++------------------+---------------------------------+------+-----+---------+----------------+
+| Field            | Type                            | Null | Key | Default | Extra          |
++------------------+---------------------------------+------+-----+---------+----------------+
+| id               | int(11)                         | NO   | PRI | NULL    | auto_increment |
+| addressBookID    | int(11)                         | NO   |     | NULL    |                |
+| firstName        | varchar(255)                    | NO   |     | NULL    |                |
+| lastName         | varchar(255)                    | YES  |     | NULL    |                |
+| birthday         | datetime                        | NO   |     | NULL    |                |
+| type             | enum('home','work','other')     | NO   |     | NULL    |                |
+| subtype          | enum('phone','address','email') | NO   |     | NULL    |                |
+| contentLineOne   | varchar(255)                    | NO   |     | NULL    |                |
+| contentLineTWO   | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineThree | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineFour  | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineFive  | varchar(255)                    | YES  |     | NULL    |                |
++------------------+---------------------------------+------+-----+---------+----------------+
+
+ALTER TABLE Entry ADD FOREIGN KEY (addressBookId) REFERENCES AddressBook(id);
+mysql> DESCRIBE Entry;
++------------------+---------------------------------+------+-----+---------+----------------+
+| Field            | Type                            | Null | Key | Default | Extra          |
++------------------+---------------------------------+------+-----+---------+----------------+
+| id               | int(11)                         | NO   | PRI | NULL    | auto_increment |
+| addressBookID    | int(11)                         | NO   | MUL | NULL    |                |
+| firstName        | varchar(255)                    | NO   |     | NULL    |                |
+| lastName         | varchar(255)                    | YES  |     | NULL    |                |
+| birthday         | datetime                        | NO   |     | NULL    |                |
+| type             | enum('home','work','other')     | NO   |     | NULL    |                |
+| subtype          | enum('phone','address','email') | NO   |     | NULL    |                |
+| contentLineOne   | varchar(255)                    | NO   |     | NULL    |                |
+| contentLineTWO   | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineThree | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineFour  | varchar(255)                    | YES  |     | NULL    |                |
+| contentLineFive  | varchar(255)                    | YES  |     | NULL    |                |
++------------------+---------------------------------+------+-----+---------+----------------+
