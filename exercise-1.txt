@@ -1,3 +1,2 @@
 mysql-ctl start
 mysql -uhennigk
-exit
